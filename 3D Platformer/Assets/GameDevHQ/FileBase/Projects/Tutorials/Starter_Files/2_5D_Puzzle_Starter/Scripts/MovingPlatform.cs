@@ -14,14 +14,14 @@ public class MovingPlatform : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (_switching == false)
+        if (!_switching)
         {
 
-            transform.position = Vector3.MoveTowards(transform.position, _targetB.position, _speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, _targetB.position, _speed * Time.fixedDeltaTime);
         }
-        else if (_switching == true)
+        else if (_switching)
         {
-            transform.position = Vector3.MoveTowards(transform.position, _targetA.position, _speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, _targetA.position, _speed * Time.fixedDeltaTime);
         }
 
         if (transform.position == _targetB.position)

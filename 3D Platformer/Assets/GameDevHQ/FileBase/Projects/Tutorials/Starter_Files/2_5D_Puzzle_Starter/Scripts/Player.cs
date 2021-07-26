@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
 
         if (_uiManager == null)
         {
-            Debug.LogError("The UI Manager is NULL."); 
+            Debug.LogError("The UI Manager is NULL.");
         }
 
         _uiManager.UpdateLivesDisplay(_lives);
@@ -36,6 +36,11 @@ public class Player : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        PlayerMovement();
+    }
+
+    void PlayerMovement()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         Vector3 direction = new Vector3(horizontalInput, 0, 0);
