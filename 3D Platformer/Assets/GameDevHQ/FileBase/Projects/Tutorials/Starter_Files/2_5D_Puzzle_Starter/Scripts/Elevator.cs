@@ -7,15 +7,24 @@ public class Elevator : MonoBehaviour
     [SerializeField] private Transform _pointA, _pointB;
     private float _speed = 3f;
     private bool _goDown;
+    [SerializeField] AudioSource _goingDown;
+    [SerializeField] AudioSource _goingUp;
     public void CallElevator()
     {
         _goDown = !_goDown;
+        //TODO
+        //Add in sounds for going down and going up and remove the colour changes from the panel script
+        if (_goDown)
+        {
+            _goingDown.Play();
+        }else if (!_goDown)
+        {
+            _goingUp.Play();
+        }
     }
 
     private void FixedUpdate()
     {
-        //down == true
-            //move towards point b
         if(_goDown)
         {
             transform.position = Vector3.MoveTowards(transform.position, _pointB.position, _speed * Time.fixedDeltaTime);
@@ -24,9 +33,6 @@ public class Elevator : MonoBehaviour
         {
             transform.position = Vector3.MoveTowards(transform.position, _pointA.position, _speed * Time.fixedDeltaTime);
         }
-
-        //else is down is false
-            //move towards point a
     }
 
     private void OnTriggerEnter(Collider other)
@@ -44,5 +50,9 @@ public class Elevator : MonoBehaviour
             other.transform.parent = null;
         }
     }
+
+
+
+
 
 }
