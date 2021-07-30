@@ -26,7 +26,6 @@ public class ElevatorPanel : MonoBehaviour
 
                 if (_elevatorCalled)
                 {
-                    _lightColour.material.color = Color.red;
                     _elevatorCalled = false;
                 }
                 else
