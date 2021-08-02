@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
 
     void PlayerMovement()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
         _anim.SetFloat("Speed", Mathf.Abs(horizontalInput));
 
         if (_controller.isGrounded == true)
@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
             {
                 _yVelocity = _jumpHeight;
                 _canDoubleJump = true;
+                _anim.SetTrigger("IsJumping");
             }
         }
         else
@@ -51,6 +52,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (_canDoubleJump == true)
                 {
+                    _anim.SetTrigger("IsDoubleJump");
                     _yVelocity += _jumpHeight;
                     _canDoubleJump = false;
                 }
