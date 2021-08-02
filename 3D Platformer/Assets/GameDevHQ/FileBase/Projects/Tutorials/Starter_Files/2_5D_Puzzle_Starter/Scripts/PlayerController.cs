@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private float _yVelocity;
     private Vector3 _direction, _velocity;
     private bool _canDoubleJump = false;
+    private bool _jumping = false;
     [SerializeField] Animator _anim;
 
 
@@ -39,11 +40,20 @@ public class PlayerController : MonoBehaviour
             _direction = new Vector3(0, 0, horizontalInput);
             _velocity = _direction * _speed;
             //_wallJump = false;
+
+            if (_jumping)
+            {
+                _jumping = false;
+                _anim.SetBool("IsJumping", _jumping);
+            }
+
+
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 _yVelocity = _jumpHeight;
                 _canDoubleJump = true;
-                _anim.SetTrigger("IsJumping");
+                _jumping = true;
+                _anim.SetBool("IsJumping", _jumping);
             }
         }
         else
