@@ -47,6 +47,13 @@ public class PlayerController : MonoBehaviour
                 _anim.SetBool("IsJumping", _jumping);
             }
 
+            if (horizontalInput != 0)
+            {
+                Vector3 facingDirection = transform.localEulerAngles;
+                facingDirection.y = _direction.z > 0 ? 0 : 180;
+                transform.localEulerAngles = facingDirection;
+            }
+
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
