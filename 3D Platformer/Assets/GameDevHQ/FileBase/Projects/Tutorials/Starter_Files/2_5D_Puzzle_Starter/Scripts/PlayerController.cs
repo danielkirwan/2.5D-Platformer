@@ -27,7 +27,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PlayerMovement();
+        if(_controller.enabled == true)
+        {
+            PlayerMovement();
+        }
+        
     }
 
     void PlayerMovement()
@@ -80,5 +84,18 @@ public class PlayerController : MonoBehaviour
 
         _controller.Move(_velocity * Time.deltaTime);
     }
+
+
+    public void GrabbingLedge(Vector3 handPosition)
+    {
+        _anim.SetBool("LedgeGrab", true);
+        //_gravity = 0;
+        //_yVelocity = 0;
+
+        _controller.enabled = false;
+        transform.position = handPosition;
+        Debug.Log("Grabbing ledge");
+    }
+
 
 }
