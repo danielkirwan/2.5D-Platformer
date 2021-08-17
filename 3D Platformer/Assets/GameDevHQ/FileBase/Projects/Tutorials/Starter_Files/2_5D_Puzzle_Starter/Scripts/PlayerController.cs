@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     private bool _canDoubleJump = false;
     private bool _jumping = false;
     [SerializeField] Animator _anim;
+    private bool _grabbingLedge = false;
+    private LedgeGrab _activeLedge;
 
 
     // Start is called before the first frame update
@@ -31,7 +33,11 @@ public class PlayerController : MonoBehaviour
         {
             PlayerMovement();
         }
-        
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            _anim.SetTrigger("IsClimbing");
+        }
     }
 
     void PlayerMovement()
@@ -85,17 +91,24 @@ public class PlayerController : MonoBehaviour
         _controller.Move(_velocity * Time.deltaTime);
     }
 
-
-    public void GrabbingLedge(Vector3 handPosition)
+    //passes in the handpositio for the ledge and the current ledge
+    public void GrabbingLedge(Vector3 handPosition, LedgeGrab currentLedge)
     {
-        _anim.SetBool("LedgeGrab", true);
-        //_gravity = 0;
-        //_yVelocity = 0;
-
         _controller.enabled = false;
+        _grabbingLedge = true;
+        _anim.SetBool("LedgeGrab", true);
+        //_anim.SetBool("IsJumping", false);
+        //_anim.SetFloat("Speed", 0f);
         transform.position = handPosition;
-        Debug.Log("Grabbing ledge");
+        _activeLedge = currentLedge;
     }
 
+
+    public void ClimbUpComplete()
+    {
+        transform.position = _activeLedge.GetStandingPosition();
+        _anim.SetBool("LedgeGrab", false);
+        _controller.enabled = true;
+    }
 
 }

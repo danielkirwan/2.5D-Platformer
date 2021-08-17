@@ -335,6 +335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _handPosition: {x: -0.14, y: 69.27, z: 122.26}
+  _standPosition: {x: -0.14, y: 74.71, z: 123.88}
 --- !u!1 &640966754 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2419587161957485181, guid: a4546873e3866114da8d0be5af36e584, type: 3}
