@@ -72,6 +72,13 @@ public class PlayerController : MonoBehaviour
                 _jumping = true;
                 _anim.SetBool("IsJumping", _jumping);
             }
+
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                _anim.SetTrigger("RunningRoll");
+                _controller.height = 0;
+                _controller.center =  new Vector3 (0, 0.09f, 0);
+            }
         }
         else
         {
@@ -101,6 +108,12 @@ public class PlayerController : MonoBehaviour
         //_anim.SetFloat("Speed", 0f);
         transform.position = handPosition;
         _activeLedge = currentLedge;
+    }
+
+    public void AfterRollSetColliderHeight()
+    {
+        _controller.height = 2f;
+        _controller.center = new Vector3(0, 1, 0);
     }
 
 
