@@ -8,6 +8,7 @@ TagManager:
   - Wall
   - MoveableBox
   - Ledge
+  - Platform
   layers:
   - Default
   - TransparentFX
