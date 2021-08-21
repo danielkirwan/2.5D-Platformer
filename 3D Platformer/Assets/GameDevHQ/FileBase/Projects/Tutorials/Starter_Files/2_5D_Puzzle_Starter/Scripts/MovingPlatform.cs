@@ -9,30 +9,52 @@ public class MovingPlatform : MonoBehaviour
     [SerializeField]
     private float _speed = 3.0f;
     private bool _switching = false;
+    private bool _stopped = false;
 
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!_switching)
+        if (!_switching && !_stopped)
         {
 
             transform.position = Vector3.MoveTowards(transform.position, _targetB.position, _speed * Time.fixedDeltaTime);
         }
-        else if (_switching)
+        else if (_switching && !_stopped)
         {
             transform.position = Vector3.MoveTowards(transform.position, _targetA.position, _speed * Time.fixedDeltaTime);
         }
 
         if (transform.position == _targetB.position)
         {
-            _switching = true;
+            //_switching = true;
+            StartCoroutine(WaitToMovePlatformTrue());
+            _stopped = true;
         }
         else if (transform.position == _targetA.position)
         {
-            _switching = false;
+            //_switching = false;
+            StartCoroutine(WaitToMovePlatformFalse());
+            _stopped = true;
         }
     }
+
+    IEnumerator WaitToMovePlatformTrue()
+    {
+        
+        yield return new WaitForSeconds(3f);
+        _switching = true;
+        _stopped = false;
+    }
+
+    IEnumerator WaitToMovePlatformFalse()
+    {
+        
+        yield return new WaitForSeconds(3f);
+        _switching = false;
+        _stopped = false;
+    }
+
 
     //collison detection with player
     //if we collide with player

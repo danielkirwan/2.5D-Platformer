@@ -9,6 +9,7 @@ public class Elevator : MonoBehaviour
     private bool _goDown;
     [SerializeField] AudioSource _goingDown;
     [SerializeField] AudioSource _goingUp;
+    private bool _elevatorMoving;
     public void CallElevator()
     {
         _goDown = !_goDown;
@@ -34,6 +35,26 @@ public class Elevator : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, _pointA.position, _speed * Time.fixedDeltaTime);
         }
     }
+
+
+    IEnumerator WaitBeforeMoving()
+    {
+        while (_elevatorMoving)
+        {
+            yield return new WaitForSeconds(5f);
+            CallElevator();
+        }
+    }
+
+    private void Start()
+    {
+        _elevatorMoving = true;
+        if (_elevatorMoving)
+        {
+            StartCoroutine(WaitBeforeMoving());
+        }
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
